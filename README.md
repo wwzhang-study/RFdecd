@@ -63,7 +63,5 @@ We can have the estimated cell-type proportion matrix:
 head(res_RFdecd$estProp)
 ```
 
-For more details about how to run `RFdecd`, please refer to `vignette("RFdecd")`.
-
 ## Citation
 Coming soon.
