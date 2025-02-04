@@ -25,33 +25,45 @@ library(RFdecd)
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+you can run `RFdecd` with a single line of code:
 
-``` r
-library(RFdecd)
-## basic example code
+```R
+res_RFdecd <- RFdeconv(DataType = "Gene expression",
+                       Y_raw,
+                       K,
+                       CTSoption = DEVarSelect_RFdecd,
+                       nMarker = 1000,
+                       InitMarker = NULL,
+                       TotalIter = 30)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+Some explanations about the parameters:
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+- **DataType:** A covariate representing data type, either Gene expression or DNA methylation.
+
+- **Y_raw:** A raw data matrix of complex samples. 
+
+- **K:** The number of cell types.
+
+- **CTSoption:** Feature selection options. 
+(1) DEVarSelect_CV for selecting the top 1000 features with the largest coefficient of variation (i.e., CV) in the estimated cell-type profiles; 
+(2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
+(3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., 1_O); (4) DEVarSelect_2VSother for selecting the top 1000 features between two cell types and the other cell types (i.e., 2_O); (5) DEVarSelect_pairwise for selecting the top 1000 features between one cell type and another (i.e., P_W); 
+(6) DEVarSelect_RFdecd for selecting the top 1000 features between between one cell type and the other cell types, as well as between two cell types and the other cell types (i.e., RFdecd).
+
+- **nMarker:** The number of cell-type specific markers. 
+
+- **InitMarker:** Initial markers.
+
+- **TotalIter:** The number of iterations.
+
+We can have the estimated cell-type proportion matrix:
+
+```R
+head(res_RFdecd$estProp)
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+For more details about how to run `RFdecd`, please refer to `vignette("RFdecd")`.
 
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+## Citation
+Coming soon.
