@@ -1,0 +1,81 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# RFdecd: reference-free deconvolution of complex samples based on cross-cell type differential analysis
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`RFdecd` is an R package for reference-free deconvolution based on feature selection.
+It iteratively searches for cell-type-specific features by six feature selection options, 
+and performs composition estimation.
+
+## Installation
+
+You can install the development version of RFdecd like so:
+
+``` r
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+    
+devtools::install_github('wwzhang-study/RFdecd', dependencies=T, build_vignettes = T)
+
+library(RFdecd)
+```
+
+## Example
+
+you can run `RFdecd` with a single line of code:
+
+```R
+res_RFdecd <- RFdeconv(DataType = "Gene expression",
+                       Y_raw,
+                       K,
+                       CTSoption = DEVarSelect_RFdecd,
+                       nMarker = 1000,
+                       InitMarker = NULL,
+                       TotalIter = 30)
+```
+
+Some explanations about the parameters:
+
+- **DataType:** A covariate representing data type, either Gene expression or DNA methylation.
+
+- **Y_raw:** A raw data matrix of complex samples. 
+
+- **K:** The number of cell types.
+
+- **CTSoption:** Feature selection options. 
+(1) DEVarSelect_CV for selecting the top 1000 features with the largest coefficient of variation (i.e., CV) in the estimated cell-type profiles; 
+(2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
+(3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., 1_O); (4) DEVarSelect_2VSother for selecting the top 1000 features between two cell types and the other cell types (i.e., 2_O); (5) DEVarSelect_pairwise for selecting the top 1000 features between one cell type and another (i.e., P_W); 
+(6) DEVarSelect_RFdecd for selecting the top 1000 features between between one cell type and the other cell types, as well as between two cell types and the other cell types (i.e., RFdecd).
+
+- **nMarker:** The number of cell-type specific markers. 
+
+- **InitMarker:** Initial markers.
+
+- **TotalIter:** The number of iterations.
+
+We can have the estimated cell-type proportion matrix:
+
+```R
+head(res_RFdecd$estProp)
+```
+
+For more details about how to run `RFdecd`, please refer to `vignette("RFdecd")`.
+
+## Citation
+Coming soon.

@@ -1,0 +1,16 @@
+Package: RFdecd
+Title: Feature selection options improved RF deconvolution
+Version: 0.0.0.9000
+Authors@R: 
+    person("Weiwei", "Zhang", , "wwzhang@usc.edu.cn", role = c("aut", "cre"))
+Description: RFdecd is an R package for reference-free deconvolution based on 
+             cross-cell type differential analysis to search for cell-type specific 
+             features and perform cell composition estimation.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    deconf,
+    matrixStats,
+    RefFreeEWAS
