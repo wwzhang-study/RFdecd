@@ -1,19 +1,26 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RFdecd
+# RFdecd: reference-free deconvolution of complex samples based on cross-cell type differential analysis
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of RFdecd is to …
+`RFdecd` is an R package for reference-free deconvolution based on feature selection.
+It iteratively searches for cell-type-specific features by six feature selection options, 
+and performs composition estimation.
 
 ## Installation
 
 You can install the development version of RFdecd like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+    
+devtools::install_github('wwzhang-study/RFdecd', dependencies=T, build_vignettes = T)
+
+library(RFdecd)
 ```
 
 ## Example
