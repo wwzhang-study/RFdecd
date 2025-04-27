@@ -24,14 +24,6 @@ install.packages(
   repos = NULL,
   type = "source"
 )
-
-# Install deconf from GitHub repository
-install.packages(
-  "https://github.com/wwzhang-study/RFdecd/tree/main/deps/deconf_1.0.1.tar.gz",
-  repos = NULL,
-  type = "source"
-)
-
 ```
 
 To install the deconf package successfully, you can manually download the .tar.gz file to your local machine and install it from there. Here's how you can do it:
@@ -59,7 +51,7 @@ library(RFdecd)
 ## 2. Workflow
 The RFdecd algorithm follows a three-phase workflow to iteratively optimize feature selection and cell composition estimation. The diagram below illustrates the key steps:
 
-![Figure 1: RFdecd Workflow](https://github.com/wwzhang-study/RFdecd/blob/main/figures/Fig1.png)
+![Figure 1: RFdecd Workflow](https://raw.githubusercontent.com/wwzhang-study/RFdecd/main/figures/Fig1.png)
 
 
 **Step 1: Initialization**
@@ -150,10 +142,14 @@ Some explanations about the parameters:
 
 - **CTSoption:** Feature selection options. 
 (1) DEVarSelect_CV for selecting the top 1000 features with the largest coefficient of variation (i.e., CV) in the estimated cell-type profiles; 
+
 (2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
+
 (3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., SvC); 
 (4) DEVarSelect_2VSother for selecting the top 1000 features between two cell types and the other cell types (i.e., DvC);
+
 (5) DEVarSelect_pairwise for selecting the top 1000 features between one cell type and another (i.e., PwD); 
+
 (6) DEVarSelect_RFdecd for selecting the top 1000 features between one cell type and the other cell types, as well as between two cell types and the other cell types (i.e., RFdecd).
 
 - **nMarker:** The number of cell-type specific markers. 
