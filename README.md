@@ -146,7 +146,8 @@ Some explanations about the parameters:
 
 (2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
 
-(3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., SvC); 
+(3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., SvC);
+
 (4) DEVarSelect_2VSother for selecting the top 1000 features between two cell types and the other cell types (i.e., DvC);
 
 (5) DEVarSelect_pairwise for selecting the top 1000 features between one cell type and another (i.e., PwD); 
