@@ -141,6 +141,7 @@ Some explanations about the parameters:
 - **K:** The number of cell types.
 
 - **CTSoption:** Feature selection options. 
+
 (1) DEVarSelect_CV for selecting the top 1000 features with the largest coefficient of variation (i.e., CV) in the estimated cell-type profiles; 
 
 (2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
