@@ -20,7 +20,7 @@ DEVarSelect_1VSother <- function(Y.raw, Prop0, nMarker = 1000){
     cvec[k] = 1
     design = rep(0,N_sample)
     tmp = DEKTissue(K, Y=Y.raw, Prop=Prop0, design=design, contrast.vec=cvec)
-    idx[[k]] = sort(abs(tmp$t.stat), dec=TRUE, index=TRUE)$ix
+    idx[[k]] = sort(abs(tmp$t.stat), decreasing =TRUE, index=TRUE)$ix
   }
   nMarker.tissue = nMarker/K * 1.2 ## number of markers per tissue. Consider overlaps
   idxMarker = NULL

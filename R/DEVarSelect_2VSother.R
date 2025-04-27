@@ -24,7 +24,7 @@ DEVarSelect_2VSother <- function(Y.raw, Prop0, nMarker = 1000){
         cvec[q] = 1
         design = rep(0,N_sample)
         tmp = DEKTissue(K, Y=Y.raw, Prop=Prop0, design=design, contrast.vec=cvec)
-        idx[[ncount]] = sort(abs(tmp$t.stat), dec=TRUE, index=TRUE)$ix
+        idx[[ncount]] = sort(abs(tmp$t.stat), decreasing =TRUE, index=TRUE)$ix
         ncount <- ncount + 1
       }
     }

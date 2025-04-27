@@ -16,6 +16,6 @@ findRefinx.CV <- function(rawdata, nMarker=1000){
   cv = sqrt(vv) / mm
   ##cv = vv
   cv[is.na(cv)] = 0
-  ix = sort(cv, dec=TRUE, index=TRUE)$ix
+  ix = sort(cv, decreasing =TRUE, index=TRUE)$ix
   ix[1:nMarker]
 }

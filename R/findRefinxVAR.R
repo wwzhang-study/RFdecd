@@ -9,6 +9,6 @@
 findRefinx.VAR <- function(rawdata, nMarker=1000) {
   vv = rowVars(log(rawdata+1))
   vv[is.na(vv)] = 0
-  ix = sort(vv, dec=TRUE, index=TRUE)$ix
+  ix = sort(vv, decreasing =TRUE, index=TRUE)$ix
   ix[1:nMarker]
 }

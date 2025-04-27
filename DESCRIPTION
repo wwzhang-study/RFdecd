@@ -1,6 +1,6 @@
 Package: RFdecd
 Title: Feature selection options improved RF deconvolution
-Version: 0.0.0.9000
+Version: 1.0.1
 Authors@R: 
     person("Weiwei", "Zhang", , "wwzhang@usc.edu.cn", role = c("aut", "cre"))
 Description: RFdecd is an R package for reference-free deconvolution based on 
@@ -13,4 +13,6 @@ RoxygenNote: 7.3.2
 Imports: 
     deconf,
     matrixStats,
-    RefFreeEWAS
+    RefFreeEWAS,
+    csSAM,
+    stats
