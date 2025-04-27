@@ -27,7 +27,26 @@ install.packages(
 
 # Install deconf from GitHub repository
 install.packages(
-  "https://raw.githubusercontent.com/wwzhang-study/RFdecd/main/deps/deconf_1.0.1.tar.gz",
+  "https://github.com/wwzhang-study/RFdecd/tree/main/deps/deconf_1.0.1.tar.gz",
+  repos = NULL,
+  type = "source"
+)
+
+```
+
+To install the deconf package successfully, you can manually download the .tar.gz file to your local machine and install it from there. Here's how you can do it:
+
+(1) Visit the GitHub repository link:
+https://github.com/wwzhang-study/RFdecd/raw/main/deps/deconf_1.0.1.tar.gz
+(Right-click the link → Save Link As to download the file.)
+
+(2) Save deconf_1.0.1.tar.gz to a known location on your computer (e.g., ~/Downloads/).
+
+(3) Run the following R code, replacing PATH_TO_FILE with the actual path to your downloaded file:
+
+```R
+install.packages(
+  "~/Downloads/deconf_1.0.1.tar.gz",
   repos = NULL,
   type = "source"
 )
@@ -40,7 +59,7 @@ library(RFdecd)
 ## 2. Workflow
 The RFdecd algorithm follows a three-phase workflow to iteratively optimize feature selection and cell composition estimation. The diagram below illustrates the key steps:
 
-![Figure 1: RFdecd Workflow](main/figures/Fig1.png)
+![Figure 1: RFdecd Workflow](https://github.com/wwzhang-study/RFdecd/blob/main/figures/Fig1.png)
 
 
 **Step 1: Initialization**
