@@ -18,6 +18,9 @@ and performs composition estimation.
 if (!require("remotes")) install.packages("remotes")
 if (!require("devtools")) install.packages("devtools")
 
+# Install required dependencies
+install.packages(c("quadprog","corpcor"))
+
 # Install archived RefFreeEWAS package
 install.packages(
   "https://cran.r-project.org/src/contrib/Archive/RefFreeEWAS/RefFreeEWAS_2.2.tar.gz",
@@ -26,55 +29,53 @@ install.packages(
 )
 ```
 
-To install the deconf package successfully, you can manually download the .tar.gz file to your local machine and install it from there. Here's how you can do it:
+To install the **deconf** package successfully, follow these steps:
 
 (1) Visit the GitHub repository link:
 https://github.com/wwzhang-study/RFdecd/raw/main/deps/deconf_1.0.1.tar.gz
-(Right-click the link → Save Link As to download the file.)
+(Right-click the link → "Save Link As" to download **deconf_1.0.1.tar.gz**).
 
-(2) Save deconf_1.0.1.tar.gz to a known location on your computer (e.g., ~/Downloads/).
-
-(3) Run the following R code, replacing PATH_TO_FILE with the actual path to your downloaded file:
+(2) Install from local file:
 
 ```R
 install.packages(
-  "~/Downloads/deconf_1.0.1.tar.gz",
+  "PATH_TO_FILE/deconf_1.0.1.tar.gz", # Replace with your actual path
   repos = NULL,
   type = "source"
 )
 ```
-### Install and library RFdecd
+### Install RFdecd
 ```R
 devtools::install_github(repo = "wwzhang-study/RFdecd",dependencies = TRUE,build_vignettes = TRUE,upgrade = "never")
 library(RFdecd)
 ```
 ## 2. Workflow
-The RFdecd algorithm follows a three-phase workflow to iteratively optimize feature selection and cell composition estimation. The diagram below illustrates the key steps:
+The RFdecd workflow optimizes feature selection and composition estimation through three phases:
 
 ![Figure 1: RFdecd Workflow](https://raw.githubusercontent.com/wwzhang-study/RFdecd/main/figures/Fig1.png)
 
 
 **Step 1: Initialization**
 
-1. **Feature Selection**: Select the top 1000 features with the largest coefficient of variation (CV) from the raw data matrix \( Y \), generating a reduced matrix \( Y_{M_0} \).
+1a. **Feature Selection**: Select the top 1000 features with the largest coefficient of variation (CV) from the raw data matrix *Y*, generating a reduced matrix *Y<sub>M₀</sub>*.
 
-2. **Initial Deconvolution**: Perform reference-free deconvolution on \( Y_{M_0} \) to estimate initial cell-type profiles (\( W_1 \)) and proportions (\( H_1 \)).
+1b. **Initial Deconvolution**: Perform reference-free deconvolution on *Y<sub>M₀</sub>* to estimate initial cell-type profiles (*W<sub>1</sub>*) and proportions (*H<sub>1</sub>*).
 
-3. **Error Calculation**: Compute the root mean squared error (RMSE[1]) between the reconstructed data (\( \widehat{Y} = W_1H_1 \)) and the original data \( Y \).
+1c. **Error Calculation**: Compute the root mean squared error (RMSE[1]) between the reconstructed data (*Ŷ = W<sub>1</sub>H<sub>1</sub>*) and the original data *Y*.
 
 **Step 2: Iterative Optimization**
 
-For each iteration \( i \) (1 ≤ \( i \) ≤ `TotalIter`):
+For each iteration *i* (1 ≤ *i* ≤ TotalIter):
 
-4. **Feature Update**: Use six feature selection strategies (VAR, CV, SvC, DvC, PwD, RFdecd) to update the feature list \( M_i \) based on current proportions \( H_i \).
+2a. **Feature Update**: Use six feature selection strategies (VAR, CV, SvC, DvC, PwD, RFdecd) to update the feature list *M<sub>i</sub>* based on current proportions *H<sub>i</sub>*.
    
-5. **Deconvolution**: Re-estimate profiles (\( W_{i+1} \)) and proportions (\( H_{i+1} \)) using the updated feature matrix \( Y_{M_i} \).
+2b. **Deconvolution**: Re-estimate profiles (*W<sub>i+1</sub>*) and proportions (*H<sub>i+1</sub>*) using the updated feature matrix *Y<sub>M<sub>i</sub></sub>*.
 
-6. **Error Update**: Recalculate RMSE[i+1] for the new estimates.
+2c. **Error Update**: Recalculate RMSE[i+1] for the new estimates.
 
 **Step 3: Termination**
 
-7. **Optimal Solution**: Select the proportion matrix \( H_{id} \) corresponding to the iteration with minimal RMSE as the final output.
+3a. **Optimal Solution**: Select the proportion matrix *H<sub>id</sub>* corresponding to the iteration with minimal RMSE as the final output.
 
 ## 3. Example
 ### Gene expression example
@@ -132,33 +133,35 @@ res_RFdecd <- RFdeconv(DataType = "DNA methylation",
                        InitMarker = NULL,
                        TotalIter = 30)
 ```
-Some explanations about the parameters:
+Parameter specifications
 
-- **DataType:** A covariate representing data type, either Gene expression or DNA methylation.
+- **DataType (required):** Data type specification, **"Gene expression" or "DNA methylation"**.
 
 - **Y_raw:** A raw data matrix of complex samples. 
 
 - **K:** The number of cell types.
 
-- **CTSoption:** Feature selection options. 
+- **CTSoption (required):** Feature selection options.
 
-(1) DEVarSelect_CV for selecting the top 1000 features with the largest coefficient of variation (i.e., CV) in the estimated cell-type profiles; 
+**Options:**
 
-(2) DEVarSelect_VAR for selecting the top 1000 features with the largest variation (i.e., VAR) in the estimated cell-type profiles; 
+(1) DEVarSelect_CV -- Coefficient of variation; 
 
-(3) DEVarSelect_1VSother for selecting the top 1000 features between one cell type and the other cell types (i.e., SvC);
+(2) DEVarSelect_VAR -- Variance; 
 
-(4) DEVarSelect_2VSother for selecting the top 1000 features between two cell types and the other cell types (i.e., DvC);
+(3) DEVarSelect_1VSother -- Single vs. Composite (SvC);
 
-(5) DEVarSelect_pairwise for selecting the top 1000 features between one cell type and another (i.e., PwD); 
+(4) DEVarSelect_2VSother -- Dual vs. Composite (DvC);
 
-(6) DEVarSelect_RFdecd for selecting the top 1000 features between one cell type and the other cell types, as well as between two cell types and the other cell types (i.e., RFdecd).
+(5) DEVarSelect_pairwise -- Pairwise Direct (PwD); 
 
-- **nMarker:** The number of cell-type specific markers. 
+(6) DEVarSelect_RFdecd -- RFdecd.
+
+- **nMarker:** Number of markers to select (default: 1000). 
 
 - **InitMarker:** Initial markers.
 
-- **TotalIter:** The number of iterations.
+- **TotalIter:** Maximun iterations (default: 30).
 
 We can have the estimated cell-type proportion matrix:
 
