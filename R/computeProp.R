@@ -1,12 +1,16 @@
 
 #' @title Perform reference-free deconvolution to estimate cell-type proportion
 #'
-#' @param DataType either 'Gene expression' or 'DNA methylation'
-#' @param Y.raw A raw data matrix of complex samples
+#' @param DataType Character specifying data type. Must be either:
+#'   - "Gene expression" (default): Uses deconfounding via `deconf` package
+#'   - "DNA methylation": Uses Reference-Free EWAS via `RefFreeEWAS` package
+#' @param Y.raw A raw data matrix of complex samples where rows represent features (genes/CpG sites)
+#'  and columns represent samples.
 #' @param refinx estimated cell-type specific features
 #' @param K the number of cell type
 #'
-#' @return estimated cell-type proportion matrix
+#' @return estimated cell-type proportion matrix (K x samples), where rows
+#' correspond to cell types and columns to samples.
 #' @importFrom deconf deconfounding
 #' @importFrom RefFreeEWAS RefFreeCellMix
 #' @importFrom RefFreeEWAS RefFreeCellMixInitialize

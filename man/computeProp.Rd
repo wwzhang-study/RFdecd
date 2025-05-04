@@ -7,16 +7,22 @@
 computeProp(DataType = "Gene expression", Y.raw, refinx, K)
 }
 \arguments{
-\item{DataType}{either 'Gene expression' or 'DNA methylation'}
+\item{DataType}{Character specifying data type. Must be either:
+\itemize{
+\item "Gene expression" (default): Uses deconfounding via \code{deconf} package
+\item "DNA methylation": Uses Reference-Free EWAS via \code{RefFreeEWAS} package
+}}
 
-\item{Y.raw}{A raw data matrix of complex samples}
+\item{Y.raw}{A raw data matrix of complex samples where rows represent features (genes/CpG sites)
+and columns represent samples.}
 
 \item{refinx}{estimated cell-type specific features}
 
 \item{K}{the number of cell type}
 }
 \value{
-estimated cell-type proportion matrix
+estimated cell-type proportion matrix (K x samples), where rows
+correspond to cell types and columns to samples.
 }
 \description{
 Perform reference-free deconvolution to estimate cell-type proportion

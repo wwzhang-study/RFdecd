@@ -17,22 +17,35 @@ RFdeconv(
 \arguments{
 \item{DataType}{either 'Gene expression' or 'DNA methylation'}
 
-\item{Y_raw}{A raw data matrix of complex samples}
+\item{Y_raw}{Numeric matrix. Raw input data (features × samples) where rows
+represent genes/probes and columns represent biological samples.}
 
-\item{K}{Number of cell type}
+\item{K}{Integer (≥2). Number of cell types to deconvolve.}
 
-\item{CTSoption}{feature selection options}
+\item{CTSoption}{feature selection options.
+DEVarSelect_CV – Coefficient of variation; DEVarSelect_VAR – Variance;
+DEVarSelect_1VSother – Single vs. Composite (SvC); DEVarSelect_2VSother – Dual vs. Composite (DvC);
+DEVarSelect_pairwise – Pairwise Direct (PwD); DEVarSelect_RFdecd – RFdecd.
+Default: \code{DEVarSelect_1VSother}}
 
-\item{nMarker}{number of cell type specific markers}
+\item{nMarker}{number of cell type specific markers. Default: 1000.}
 
-\item{InitMarker}{initial cell type specific markers}
+\item{InitMarker}{Numeric/Logical vector. Initial feature indices for first
+iteration. If \code{NULL} (default), automatically identifies markers via
+cross-validation (\code{findRefinx.CV}).}
 
-\item{TotalIter}{number of iterations}
+\item{TotalIter}{number of iterations. Default: 30.}
 }
 \value{
-A list containing rmse,proportions with 30 iterations,
-the estimated proportion matrix corresponding to the iteration with the smallest RMSE
+List containing:
+\itemize{
+\item \code{allRMSE}: Numeric vector of RMSE values across all iterations
+\item \code{allProp}: List of proportion matrices from each iteration
+\item \code{estProp}: Optimal proportion matrix (minimum RMSE iteration)
+}
 }
 \description{
-Feature-selection-based reference-free deconvolution method
+Estimates cell-type proportions from bulk omics data through iterative refinement of
+cell-type-specific (CTS) feature selection. Supports both gene expression and DNA
+methylation data with automatic marker optimization.
 }

@@ -1,8 +1,10 @@
-#' @title Select the top 1000 features with the largest coefficient of variation in the estimated cell-type profiles (named CV)
+#' @title Coefficient of variation-based Cell-Type Marker Selection (SvC)
 #'
-#' @param Y.raw A raw data matrix of complex samples
-#' @param Prop0 estimated cell type proportion matrix
-#' @param nMarker number of cell type specific markers
+#' @param Y.raw Raw data matrix (features × samples) with features as rows and
+#'              samples as columns.
+#' @param Prop0 Matrix (samples × K) of estimated cell type proportions from
+#'             `RFdeconv` or `computeProp`. Each row should sum to ~1.
+#' @param nMarker number of cell type specific markers. Default: 1000.
 #'
 #' @return estimated cell type specific markers
 #' @export

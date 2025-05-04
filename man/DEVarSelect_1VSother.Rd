@@ -2,20 +2,22 @@
 % Please edit documentation in R/DEVarSelect_1VSother.R
 \name{DEVarSelect_1VSother}
 \alias{DEVarSelect_1VSother}
-\title{Cross-cell type differential analysis between one cell type and the other cell types (named as 1_O)}
+\title{Single-vs-Composite Cell-Type Marker Selection (SvC)}
 \usage{
 DEVarSelect_1VSother(Y.raw, Prop0, nMarker = 1000)
 }
 \arguments{
-\item{Y.raw}{a raw data matrix of complex samples}
+\item{Y.raw}{Raw data matrix (features × samples) with features as rows and
+samples as columns.}
 
-\item{Prop0}{estimated cell-type proportion matrix}
+\item{Prop0}{Matrix (samples × K) of estimated cell type proportions from
+\code{RFdeconv} or \code{computeProp}. Each row should sum to ~1.}
 
-\item{nMarker}{the number of cell type specific markers}
+\item{nMarker}{number of cell type specific markers. Default: 1000.}
 }
 \value{
 estimated cell-type specific markers
 }
 \description{
-Cross-cell type differential analysis between one cell type and the other cell types (named as 1_O)
+Single-vs-Composite Cell-Type Marker Selection (SvC)
 }

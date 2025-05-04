@@ -17,11 +17,11 @@ DEKTissue(
 )
 }
 \arguments{
-\item{K}{the number of cell types}
+\item{K}{Integer (≥2). Number of cell types to analyze. Must match column dimension of \code{Prop}.}
 
-\item{Y}{a raw data matrix of complex samples}
+\item{Y}{Raw data matrix (features × samples). Rows represent genes/probes, columns represent samples.}
 
-\item{Prop}{cell-type proportions for all subjects}
+\item{Prop}{Matrix (samples × K). Estimated cell type proportions from \code{computeProp()}.}
 
 \item{design}{a design matrix representing the status of samples (or continuous features: need to be developed)}
 

@@ -1,15 +1,29 @@
 #' @title Feature-selection-based reference-free deconvolution method
 #'
-#' @param DataType either 'Gene expression' or 'DNA methylation'
-#' @param Y_raw A raw data matrix of complex samples
-#' @param K Number of cell type
-#' @param CTSoption feature selection options
-#' @param nMarker number of cell type specific markers
-#' @param InitMarker initial cell type specific markers
-#' @param TotalIter number of iterations
+#' @description
+#' Estimates cell-type proportions from bulk omics data through iterative refinement of
+#' cell-type-specific (CTS) feature selection. Supports both gene expression and DNA
+#' methylation data with automatic marker optimization.
 #'
-#' @return A list containing rmse,proportions with 30 iterations,
-#' the estimated proportion matrix corresponding to the iteration with the smallest RMSE
+#' @param DataType either 'Gene expression' or 'DNA methylation'
+#' @param Y_raw Numeric matrix. Raw input data (features × samples) where rows
+#'   represent genes/probes and columns represent biological samples.
+#' @param K Integer (≥2). Number of cell types to deconvolve.
+#' @param CTSoption feature selection options.
+#' DEVarSelect_CV – Coefficient of variation; DEVarSelect_VAR – Variance;
+#' DEVarSelect_1VSother – Single vs. Composite (SvC); DEVarSelect_2VSother – Dual vs. Composite (DvC);
+#' DEVarSelect_pairwise – Pairwise Direct (PwD); DEVarSelect_RFdecd – RFdecd.
+#' Default: `DEVarSelect_1VSother`
+#' @param nMarker number of cell type specific markers. Default: 1000.
+#' @param InitMarker Numeric/Logical vector. Initial feature indices for first
+#'   iteration. If `NULL` (default), automatically identifies markers via
+#'   cross-validation (`findRefinx.CV`).
+#' @param TotalIter number of iterations. Default: 30.
+#'
+#' @return List containing:
+#'   - `allRMSE`: Numeric vector of RMSE values across all iterations
+#'   - `allProp`: List of proportion matrices from each iteration
+#'   - `estProp`: Optimal proportion matrix (minimum RMSE iteration)
 #' @export
 #'
 

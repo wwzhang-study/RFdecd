@@ -1,8 +1,10 @@
-#' @title Cross-cell type differential analysis between one cell type and the other cell types (named as 1_O)
+#' @title Single-vs-Composite Cell-Type Marker Selection (SvC)
 #'
-#' @param Y.raw a raw data matrix of complex samples
-#' @param Prop0 estimated cell-type proportion matrix
-#' @param nMarker the number of cell type specific markers
+#' @param Y.raw Raw data matrix (features × samples) with features as rows and
+#'              samples as columns.
+#' @param Prop0 Matrix (samples × K) of estimated cell type proportions from
+#'             `RFdeconv` or `computeProp`. Each row should sum to ~1.
+#' @param nMarker number of cell type specific markers. Default: 1000.
 #'
 #' @return estimated cell-type specific markers
 #' @export

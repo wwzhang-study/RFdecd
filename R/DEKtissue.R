@@ -1,9 +1,9 @@
 
 #' @title Cross-cell type differential analysis
 #'
-#' @param K the number of cell types
-#' @param Y a raw data matrix of complex samples
-#' @param Prop cell-type proportions for all subjects
+#' @param K Integer (≥2). Number of cell types to analyze. Must match column dimension of `Prop`.
+#' @param Y Raw data matrix (features × samples). Rows represent genes/probes, columns represent samples.
+#' @param Prop Matrix (samples × K). Estimated cell type proportions from `computeProp()`.
 #' @param design a design matrix representing the status of samples (or continuous features: need to be developed)
 #              example 1 of design: (0,...,0,1,...,1), 0 for control and 1 for cases
 #              example 2 of design: (0,...,0) for all subjects belong to one group

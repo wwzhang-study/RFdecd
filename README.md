@@ -1,5 +1,5 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!--- Note: Enable LaTeX rendering by adding this to your browser:  
+      https://github.com/orsharir/github-mathjax-extension -->  
 
 # RFdecd: reference-free deconvolution of complex samples based on cross-cell type differential analysis
 
@@ -50,32 +50,39 @@ devtools::install_github(repo = "wwzhang-study/RFdecd",dependencies = TRUE,build
 library(RFdecd)
 ```
 ## 2. Workflow
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/wwzhang-study/RFdecd/main/figures/Fig1.png" 
+       alt="RFdecd Workflow" 
+       width="650"/>
+</div>
+
+
+<p align="center">Figure 1: RFdecd workflow</p>
+
 The RFdecd workflow optimizes feature selection and composition estimation through three phases:
-
-![Figure 1: RFdecd Workflow](https://raw.githubusercontent.com/wwzhang-study/RFdecd/main/figures/Fig1.png)
-
 
 **Step 1: Initialization**
 
-1a. **Feature Selection**: Select the top 1000 features with the largest coefficient of variation (CV) from the raw data matrix *Y*, generating a reduced matrix *Y<sub>M₀</sub>*.
+1a. **Feature Selection**: Select the top 1000 features with the largest coefficient of variation (CV) from the raw data matrix $Y$, generating a reduced matrix $Y_{M_0}$.
 
-1b. **Initial Deconvolution**: Perform reference-free deconvolution on *Y<sub>M₀</sub>* to estimate initial cell-type profiles (*W<sub>1</sub>*) and proportions (*H<sub>1</sub>*).
+1b. **Initial Deconvolution**: Perform reference-free deconvolution on $Y_{M_0}$ to estimate initial cell-type profiles ($W_{1}$) and proportions ($H_{1}$).
 
-1c. **Error Calculation**: Compute the root mean squared error (RMSE[1]) between the reconstructed data (*Ŷ = W<sub>1</sub>H<sub>1</sub>*) and the original data *Y*.
+1c. **Error Calculation**: Compute the root mean squared error (RMSE[1]) between the reconstructed data ($\hat{Y} = W_{1}H_{1}$) and the original data $Y$.
 
 **Step 2: Iterative Optimization**
 
-For each iteration *i* (1 ≤ *i* ≤ TotalIter):
+For each iteration $i$ (1 ≤ $i$ ≤ TotalIter):
 
-2a. **Feature Update**: Use six feature selection strategies (VAR, CV, SvC, DvC, PwD, RFdecd) to update the feature list *M<sub>i</sub>* based on current proportions *H<sub>i</sub>*.
+2a. **Feature Update**: Use six feature selection strategies (VAR, CV, SvC, DvC, PwD, RFdecd) to update the feature list $M_{i}$ based on current proportions $H_{i}$.
    
-2b. **Deconvolution**: Re-estimate profiles (*W<sub>i+1</sub>*) and proportions (*H<sub>i+1</sub>*) using the updated feature matrix *Y<sub>M<sub>i</sub></sub>*.
+2b. **Deconvolution**: Re-estimate profiles ($W_{i+1}$) and proportions ($H_{i+1}$) using the updated feature matrix $Y_{M_i}$.
 
 2c. **Error Update**: Recalculate RMSE[i+1] for the new estimates.
 
 **Step 3: Termination**
 
-3a. **Optimal Solution**: Select the proportion matrix *H<sub>id</sub>* corresponding to the iteration with minimal RMSE as the final output.
+3a. **Optimal Solution**: Select the proportion matrix $H_{id}$ corresponding to the iteration with minimal RMSE as the final output.
 
 ## 3. Example
 ### Gene expression example
