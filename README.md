@@ -66,7 +66,7 @@ The RFdecd workflow optimizes feature selection and composition estimation throu
 
 1a. **Feature Selection**: Select the top 1000 features with the largest coefficient of variation (CV) from the raw data matrix $Y$, generating a reduced matrix $Y_{M_0}$.
 
-1b. **Initial Deconvolution**: Perform reference-free deconvolution on $Y_{M_0}$ to estimate initial cell-type profiles ($W_{1}$) and proportions ($H_{1}$).
+1b. **Initial Deconvolution**: Perform reference-free deconvolution on $Y_{M_0}$ to estimate initial cell proportions ($H_{1}$), followed by applying the *csfit* function from *csSAM* package to derive cell-type profiles ($W_{1}$).
 
 1c. **Error Calculation**: Compute the root mean squared error (RMSE[1]) between the reconstructed data ($\hat{Y} = W_{1}H_{1}$) and the original data $Y$.
 
