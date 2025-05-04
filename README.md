@@ -44,6 +44,22 @@ install.packages(
   type = "source"
 )
 ```
+To install the **csSAM** package successfully, follow these steps:
+
+(1) Visit the GitHub repository link:
+https://github.com/wwzhang-study/RFdecd/raw/main/deps/csSAM_1.2.4.tar.gz
+(Right-click the link → "Save Link As" to download **csSAM_1.2.4.tar.gz**).
+
+(2) Install from local file:
+
+```R
+install.packages(
+  "PATH_TO_FILE/csSAM_1.2.4.tar.gz", # Replace with your actual path
+  repos = NULL,
+  type = "source"
+)
+```
+
 ### Install RFdecd
 ```R
 devtools::install_github(repo = "wwzhang-study/RFdecd",dependencies = TRUE,build_vignettes = TRUE,upgrade = "never")
